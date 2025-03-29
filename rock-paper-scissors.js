@@ -11,9 +11,33 @@ let score = JSON.parse(localStorage.getItem('score')) || {
       wins: 0,
       losses: 0,
       ties: 0
-    };
+    }; 
   }
   */
+  let isAutoPlaying = false;
+  let intervalID;
+
+  function autoPlay(){
+
+    const buttonElement = document.querySelector('.auto-play-button');
+
+    if(buttonElement.innerHTML === 'Auto Play'){
+      buttonElement.innerHTML = 'Stop Auto Play';
+    }else{
+      buttonElement.innerHTML = 'Auto Play';
+    }
+
+    if(!isAutoPlaying){
+      intervalID = setInterval(function(){
+      const playerMove = pickComputerMove();
+      playGame(playerMove);
+    }, 1000);
+    isAutoPlaying = true;
+    } else{
+      clearInterval(intervalID);
+      isAutoPlaying = false;
+    }
+  }
 
   function playGame(playerMove) {
     const computerMove = pickComputerMove();
