@@ -4,6 +4,10 @@ let score = JSON.parse(localStorage.getItem('score')) || {
     ties: 0
   };
 
+  document.querySelector('.js-reset-button').addEventListener('click', ()=>{
+    showResetConfirmation();
+  });
+
   updateScoreElement();      
   /*
   if (!score) {
@@ -17,6 +21,10 @@ let score = JSON.parse(localStorage.getItem('score')) || {
   let isAutoPlaying = false;
   let intervalID;
 
+  document.querySelector('.js-auto-play-button').addEventListener('click', ()=>{
+    autoPlay();
+  })
+
   function autoPlay(){
 
     const buttonElement = document.querySelector('.auto-play-button');
@@ -29,7 +37,7 @@ let score = JSON.parse(localStorage.getItem('score')) || {
 
     if(!isAutoPlaying){
       intervalID = setInterval(() => {
-      const playerMove = pickComputerMove();
+      const playerMove = pickComputerMove(); 
       playGame(playerMove);
     }, 1000);
     isAutoPlaying = true;
@@ -38,6 +46,60 @@ let score = JSON.parse(localStorage.getItem('score')) || {
       isAutoPlaying = false;
     }
   }
+
+  function showResetConfirmation(){
+        let confirmHtml = '';
+        const confirmElement =  document.querySelector('.js-confirm');
+        const html = `<div>Are you sure, you want to reset the score?</div>
+         <button class="js-yes-button"> Yes </button>
+         <button class="js-no-button"> No </button>
+        `;
+         confirmHtml+=html;
+         document.querySelector('.js-confirm')
+             .innerHTML = confirmHtml;
+         
+         document.querySelector('.js-yes-button')
+             .addEventListener('click', () => {
+             score.wins = 0;
+             score.losses = 0; 
+             score.ties = 0;
+             localStorage.removeItem('score');
+             updateScoreElement();
+             confirmElement.innerHTML = '';
+             });
+ 
+         document.querySelector('.js-no-button')
+             .addEventListener('click', () => {
+                 confirmElement.innerHTML = '';
+             });
+     }
+
+  document.querySelector('.js-rock-button').addEventListener('click', ()=>{
+    playGame('rock');
+  });
+
+  document.querySelector('.js-paper-button').addEventListener('click', ()=>{
+    playGame('paper');
+  });
+
+  document.querySelector('.js-scissors-button').addEventListener('click', ()=>{
+    playGame('scissors');
+  });
+
+  document.body.addEventListener('keydown', (event)=>{
+    if(event.key === 'r'){
+      playGame('rock');
+    }
+    else if(event.key === 'p'){
+      playGame('paper');
+    }
+    else if(event.key === 's'){
+      playGame('scissors');
+    }
+    else if(event.key === 'a') autoPlay();
+
+    else if(event.key === 'Backspace') showResetConfirmation();
+  });
 
   function playGame(playerMove) {
     const computerMove = pickComputerMove();
