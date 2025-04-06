@@ -1,4 +1,7 @@
 🎮 Rock, Paper, Scissors Game 🚀
+
+Check it out here: https://divyansh-rockpaperscissors.netlify.app/
+
 This is my first JavaScript project created with HTML, CSS, and JavaScript. The game lets you play against the computer, keeping track of wins 🏆, losses 💔, and ties 🤝.
 
 => Features:
@@ -26,5 +29,3 @@ I've added a new "Auto Play" feature to my Rock Paper Scissors game! 🎮
 🔹 Clicking it again stops the autoplay, giving full control back to the player. 
 
 This feature makes the game more dynamic and fun to watch! Let me know what you think. 🚀 
-
-Check it out here: https://divyansh-rockpaperscissors.netlify.app/
